@@ -75,7 +75,7 @@ chloros-cli language pt-BR
 chloros-cli language --list
 ```
 
-За повече подробности вижте [документацията на CLI](CLI.md).
+За повече подробности вижте [CLI документацията](CLI.md).
 
 ### В Chloros Python SDK
 

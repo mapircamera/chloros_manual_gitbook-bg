@@ -10,7 +10,7 @@
 
 ## CLI Вход
 
-Влезте с вашите Chloros+ данни, за да активирате CLI обработката.
+Влезте с вашите Chloros+ данни, за да активирате CLI обработка.
 
 **Синтаксис:**
 
@@ -28,7 +28,7 @@ chloros-cli login user@example.com 'MyP@ssw0rd123'
 **Специални символи**: Използвайте единични кавички около пароли, съдържащи символи като `$`, `!` или интервали.
 {% endhint %}
 
-**Резултат:**
+**Изход:**
 
 <figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>
 
