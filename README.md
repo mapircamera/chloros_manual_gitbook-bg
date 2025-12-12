@@ -4,7 +4,9 @@ metaLinks: {}
 
 # Първи стъпки
 
-<div data-full-width="false"><figure><img src=".gitbook/assets/chloros_logo_transparent.png" alt=""><figcaption></figcaption></figure></div>Chloros е софтуерно приложение от [MAPIR](https://www.mapir.camera) за обработка на изображения и други данни от сензори.
+<div data-full-width="false"><figure><img src=".gitbook/assets/chloros_logo_transparent.png" alt=""><figcaption></figcaption></figure></div>
+
+Chloros е софтуерно приложение от [MAPIR](https://www.mapir.camera) за обработка на изображения и други данни от сензори.
 
 ***
 
