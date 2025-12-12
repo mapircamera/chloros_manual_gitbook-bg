@@ -6,7 +6,9 @@
 
 Когато влезете в акаунта си, ще се покажат данните ви:
 
-<figure><img src=".gitbook/assets/user_account.JPG" alt="" width="375"><figcaption></figcaption></figure>## CLI Вход
+<figure><img src=".gitbook/assets/user_account.JPG" alt="" width="375"><figcaption></figcaption></figure>
+
+## CLI Вход
 
 Влезте с вашите Chloros+ данни, за да активирате CLI обработката.
 
@@ -28,7 +30,9 @@ chloros-cli login user@example.com 'MyP@ssw0rd123'
 
 **Резултат:**
 
-<figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>### Изтичане на плана
+<figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>
+
+### Изтичане на плана
 
 Изтичането на плана в графичния интерфейс показва кога лицензът ви ще стане невалиден. За повтарящи се месечни абонаменти изтичането е в края на месеца. За годишни абонаменти то е една година след като сте започнали абонамента. Проверката на лиценза изисква месечна интернет връзка за потвърждение, с 30-дневен гратисен период.
 
