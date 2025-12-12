@@ -38,6 +38,6 @@ chloros-cli login user@example.com 'MyP@ssw0rd123'
 
 ### Ограничение на устройствата
 
-Всеки план Chloros+ предлага различен брой регистрирани устройства. Всяко устройство, в което влизате с акаунт Chloros+, се отчита към броя на регистрираните устройства. Можете да преименувате и премахнете устройство на страницата на акаунта си в MAPIR Cloud.
+Всеки план Chloros+ предлага различен брой регистрирани устройства. Всяко устройство, в което влизате с акаунт Chloros+, се отчита в броя на регистрираните устройства. Можете да преименувате и премахнете устройство на страницата на акаунта си в MAPIR Cloud.
 
 <table><thead><tr><th width="168.5999755859375" align="right">Chloros+ план</th><th align="center">COPPER</th><th align="center">БРОНЗ</th><th align="center">СРЕБЪР</th><th align="center">ЗЛАТО</th></tr></thead><tbody><tr><td align="right">Поддържани устройства</td><td align="center">2</td><td align="center">2</td><td align="center">5</td><td align="center">10</td></tr></tbody></table>

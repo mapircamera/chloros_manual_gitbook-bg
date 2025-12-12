@@ -1,6 +1,6 @@
 # GUI: Навигация
 
-Когато стартирате за първи път Chloros и Chloros (браузър), ще се стартира неговият бекенд. Щом е готов, в горния ляв ъгъл ще се появи иконата на главното меню. <img src=".gitbook/assets/image (1).png" alt="" data-size="line"> .
+Когато стартирате Chloros и Chloros (браузър) за първи път, ще се стартира неговият бекенд. Щом е готов, в горния ляв ъгъл ще се появи иконата на главното меню. <img src=".gitbook/assets/image (1).png" alt="" data-size="line"> .
 
 <figure><img src=".gitbook/assets/header.JPG" alt=""><figcaption></figcaption></figure>
 
