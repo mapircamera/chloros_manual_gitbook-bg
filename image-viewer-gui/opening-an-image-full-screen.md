@@ -1,247 +1,247 @@
-# Opening an Image Full Screen
+# Отваряне на изображение на цял екран
 
-The Chloros Image Viewer provides a dedicated full-screen interface for viewing, analyzing, and manipulating your multispectral images. Whether viewing original images or processed outputs, the Image Viewer offers powerful tools for inspection and analysis.
+Chloros Image Viewer предоставя специален интерфейс на цял екран за преглед, анализ и манипулиране на мултиспектралните ви изображения. Независимо дали преглеждате оригинални изображения или обработени резултати, Image Viewer предлага мощни инструменти за проверка и анализ.
 
-## Accessing the Image Viewer
+## Достъп до Image Viewer
 
-### From the File Browser
+### От браузъра за файлове
 
-The most common way to open an image in the Image Viewer:
+Най-честият начин за отваряне на изображение в Image Viewer:
 
-1. Ensure you're in the **File Browser** tab <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line">
-2. Click any **image thumbnail** in the image grid
-3. The image opens in the **main preview area** (center of screen)
-4. The image is now loaded and ready for full-screen viewing
+1. Уверете се, че сте в раздела **File Browser** <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line">
+2. Кликнете върху някоя **миниатюра на изображение** в решетката с изображения
+3. Изображението се отваря в **основната област за преглед** (в центъра на екрана)
+4. Изображението вече е заредено и готово за преглед на цял екран
 
-### Opening the Image Viewer Tab
+### Отваряне на раздела Image Viewer
 
-Once an image is loaded in the preview area:
+След като изображението е заредено в областта за преглед:
 
-1. Click the **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> icon in the left sidebar
-2. The Image Viewer tab opens, displaying the selected image full-screen
-3. Advanced viewing and analysis tools become available in the left sidebar
-
-***
-
-## Image Viewer Interface Overview
-
-### Main Display Area
-
-The largest portion of the screen shows your image:
-
-* **Full resolution**: Images displayed at native resolution
-* **Zoomable**: Use controls or mouse wheel to zoom
-* **Pannable**: Click and drag to move around when zoomed
-* **Aspect ratio maintained**: Images scale proportionally
+1. Кликнете върху иконата **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> в лявата странична лента
+2. Отваря се раздел „Image Viewer“, който показва избраното изображение на цял екран
+3. В лявата странична лента се появяват разширени инструменти за преглед и анализ
 
 ***
 
-## Viewing Options
+## Общ преглед на интерфейса на Image Viewer
 
-### Basic Image Navigation
+### Основна област за показване
 
-#### Browse Through Images
+Най-голямата част от екрана показва изображението:
 
-Navigate through your image set using keyboard shortcuts or buttons:
-
-* **Next image**: Click → button or press **→** (Right Arrow) key
-* **Previous image**: Click ← button or press **←** (Left Arrow) key
-* **Jump to specific image**: Return to File Browser and click desired thumbnail
-
-#### Zoom Controls
-
-Adjust magnification to inspect image details:
-
-**Zoom In:**
-
-* Click **+** (Plus) button
-* Press **+** or **=** key
-* Scroll mouse wheel **up**
-
-**Zoom Out:**
-
-* Click **−** (Minus) button
-* Press **−** (Minus) key
-* Scroll mouse wheel **down**
-
-**Fit to Screen:**
-
-* Click **↔** (Fit) button
-* Press **0** (Zero) key
-* Double-click on image
-
-#### Pan When Zoomed
-
-When zoomed in beyond screen size:
-
-1. Move mouse cursor over image
-2. Click and **hold left mouse button**
-3. **Drag** to move image around
-4. Release to stop panning
-
-**Alternative**: Use arrow keys to pan in small increments
+* **Пълна разделителна способност**: Изображенията се показват с оригинална разделителна способност
+* **Мащабиране**: Използвайте контролите или колелцето на мишката, за да мащабирате
+* **Панорамиране**: Кликнете и плъзнете, за да се движите при мащабиране
+* **Запазване на съотношението на страните**: Изображенията се мащабират пропорционално
 
 ***
 
-## Pixel Value Inspection
+## Опции за преглед
 
-### Viewing Pixel Values at Cursor
+### Основна навигация в изображенията
 
-As you move your mouse cursor over the image, pixel values display in real-time:
+#### Преглед на изображенията
 
-**Value display location:**
+Навигирайте в набора от изображения, като използвате клавишни комбинации или бутони:
 
-* **Floating number and red line in right side index LUT gradient legend**
-* **When zoomed in further, floating value near cursor and highlighted pixel**
-* Shows values for pixel **under cursor or highlighted**
-* Updates as you move mouse
+* **Следващо изображение**: Кликнете върху бутона → или натиснете клавиша **→** (дясна стрелка)
+* **Предишно изображение**: Кликнете върху бутона ← или натиснете клавиша **←** (лява стрелка)
+* **Преминаване към конкретно изображение**: Върнете се в браузъра на файлове и кликнете върху желаната миниатюра
 
-***
+#### Контроли за мащабиране
 
-## Image Types You Can View
+Регулирайте увеличението, за да разгледате детайлите на изображението:
 
-### Original Images (Pre-Processing)
+**Увеличаване:**
 
-**RAW + JPG images from camera:**
+* Кликнете върху бутона **+** (плюс)
+* Натиснете клавиша **+** или **=**
+* Превъртете колелцето на мишката **нагоре**
 
-* Display RAW data as previewed
-* Show original, uncorrected values
-* Useful for checking image quality before processing
+**Намаляване:**
 
-### Calibrated Reflectance Images
+* Кликнете върху бутона **−** (минус)
+* Натиснете клавиша **−** (минус)
+* Превъртете колелцето на мишката **надолу**
 
-**After processing:**
+**Поставете на екрана:**
 
-* Vignette corrected
-* Reflectance calibrated
-* Multi-band TIFF (Red, Green, NIR, etc.)
-* Scientific data ready for analysis
+* Кликнете върху бутона **↔** (Поставете)
+* Натиснете клавиша **0** (Нула)
+* Кликнете два пъти върху изображението
 
-### Index Images
+#### Панорамиране при мащабиране
 
-**NDVI, NDRE, GNDVI, etc. (\_NDVI.tif files):**
+Когато мащабирате над размера на екрана:
 
-* Single-band grayscale images
-* Pixel values represent index calculation results
-* Range typically -1 to +1 for normalized indices
-* Can apply color LUTs for visualization
+1. Преместете курсора на мишката върху изображението
+2. Кликнете и **задръжте левия бутон на мишката**
+3. **Плъзнете**, за да преместите изображението
+4. Отпуснете, за да спрете панорамирането
 
-***
-
-## Index and LUT Application
-
-Apply multispectral indices and color Look-Up Tables:
-
-1. Locate **Index/LUT Sandbox** in **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> sidebar
-2. Select vegetation index (NDVI, NDRE, etc.)
-3. Select multispectral formula, or create your own custom one (Chloros+ only)
-4. Apply color LUT gradient for visualization
-5. Adjust value ranges and thresholds
-
-See [Index/LUT Sandbox](index-lut-sandbox.md) for detailed instructions.
+**Алтернатива**: Използвайте клавишите със стрелки, за да панорамирате с малки стъпки
 
 ***
 
-## Keyboard Shortcuts
+## Проверка на стойността на пикселите
 
-### Navigation
+### Преглед на стойностите на пикселите при курсора
 
-* **→** (Right Arrow): Next image
-* **←** (Left Arrow): Previous image
-* **Home**: First image in list
-* **End**: Last image in list
+Когато премествате курсора на мишката върху изображението, стойностите на пикселите се показват в реално време:
 
-### Zoom
+**Място на показване на стойността:**
 
-* **+** or **=**: Zoom in
-* **−**: Zoom out
-* **0** (Zero): Fit to screen
-* **Mouse Wheel**: Zoom in/out
-
-### View Controls
-
-* **P**: Toggle pixel percent mode
-* **L**: Toggle layers panel
-* **Esc**: Close full-screen or return to File Browser
-
-### Other
-
-* **Ctrl+S**: Save current image
-* **F**: Full-screen mode (if available)
+* **Плаваща цифра и червена линия в легендата на градиента на индекса LUT вдясно**
+* **При по-голямо увеличение, плаваща стойност близо до курсора и подчертани пиксели**
+* Показва стойностите за пикселите **под курсора или подчертаните**
+* Актуализира се, докато движите мишката
 
 ***
 
-### Verifying Index Calculations
+## Типове изображения, които можете да преглеждате
 
-Check that indices calculated correctly:
+### Оригинални изображения (преди обработка)
 
-1. Open NDVI or other index image
-2. Check vegetation areas:
-   * **NDVI**: Should show 0.4-0.9 for healthy plants
-   * **NDRE**: Higher values for vigorous growth
-   * **GNDVI**: Similar to NDVI but chlorophyll-sensitive
-3. Check non-vegetation:
-   * **Soil**: Near 0 or slightly negative
-   * **Water**: Negative values (-0.5 to 0)
+**RAW + JPG изображения от камерата:**
 
-***
+* Показване на RAW данни като предварително прегледани
+* Показване на оригинални, некоригирани стойности
+* Полезно за проверка на качеството на изображението преди обработка
 
-## Troubleshooting Viewing Issues
+### Калибрирани изображения на отражателната способност
 
-### Image Won't Open
+**След обработка:**
 
-**Possible causes:**
+* Коригирана винетка
+* Калибрирана отражателна способност
+* Мултибандов TIFF (Red, Green, NIR и др.)
+* Научни данни, готови за анализ
 
-* File corrupted during processing
-* Unsupported file format
-* Insufficient memory for large image
+### Индексни изображения
 
-**Solutions:**
+**NDVI, NDRE, GNDVI и др. (\_NDVI.tif файлове):**
 
-1. Try opening in external viewer to verify file integrity
-2. Check file format matches expected type
-3. Close other applications to free memory
-4. Try smaller/different image
-
-### Black or White Image Display
-
-**Possible causes:**
-
-* Value range outside display capability
-* 32-bit float image with unusual values
-* Index calculation error
-
-**Solutions:**
-
-1. Check pixel values - if all very low or very high, adjust display range
-2. Try opening in QGIS or similar with auto-range adjustment
-3. Check Debug Log from processing for errors
-
-### Pixel Values Seem Wrong
-
-**Possible causes:**
-
-* Viewing wrong image (original vs processed)
-* Calibration didn't apply correctly
-* Light sensor data wasn't included in input
-* Percent mode toggled incorrectly
-
-**Solutions:**
-
-1. Verify you're viewing processed output (check filename suffix)
-2. Check percent mode button state
-3. Compare with known-good images from same dataset
+* Еднолентови изображения в сиво
+* Стойностите на пикселите представляват резултатите от изчислението на индекса
+* Диапазонът обикновено е от -1 до +1 за нормализирани индекси
+* Могат да се прилагат цветни LUT за визуализация
 
 ***
 
-## Next Steps
+## Приложение на индекс и LUT
 
-Now that you can view images full-screen:
+Прилагане на мултиспектрални индекси и цветни таблици за търсене:
 
-* [**Image Layers**](image-layers.md) - Learn about multi-band visualization
-* [**Index/LUT Sandbox**](index-lut-sandbox.md) - Apply custom indices and color mapping
-* [**Multispectral Index Formulas**](../project-settings/multispectral-index-formulas.md) - Understand available indices
+1. Намерете **Index/LUT Sandbox** в **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> страничната лента
+2. Изберете индекс на растителността (NDVI, NDRE и др.)
+3. Изберете мултиспектрална формула или създайте своя собствена (само Chloros+)
+4. Приложете цветен LUT градиент за визуализация
+5. Настройте диапазоните на стойностите и праговете
 
-For processing workflow, see:
+Вижте [Index/LUT Sandbox](index-lut-sandbox.md) за подробни инструкции.
 
-* [**Processing Images (GUI)**](../processing-images-gui/page-1.md) - Complete processing guide
+***
+
+## Клавишни комбинации
+
+### Навигация
+
+* **→** (дясна стрелка): Следваща снимка
+* **←** (лява стрелка): Предишна снимка
+* **Home**: Първа снимка в списъка
+* **End**: Последно изображение в списъка
+
+### Мащабиране
+
+* **+** или **=**: Увеличаване
+* **−**: Намаляване
+* **0** (Нула): Попадение на екрана
+* **Колелце на мишката**: Увеличаване/намаляване
+
+### Контроли за преглед
+
+* **P**: Превключване на режим процент на пикселите
+* **L**: Превключване на панел слоеве
+* **Esc**: Затваряне на цял екран или връщане към браузъра на файлове
+
+### Други
+
+* **Ctrl+S**: Запазване на текущата картина
+* **F**: Режим на цял екран (ако е наличен)
+
+***
+
+### Проверка на изчисленията на индекса
+
+Проверете дали индексите са изчислени правилно:
+
+1. Отворете NDVI или друго изображение на индекса.
+2. Проверете площите с растителност:
+   * **NDVI**: Трябва да показва 0,4-0,9 за здрави растения.
+   * **NDRE**: По-високи стойности за бурен растеж
+   * **GNDVI**: Подобно на NDVI, но чувствително към хлорофил
+3. Проверете нерастителността:
+   * **Почва**: Близо до 0 или леко отрицателна
+   * **Вода**: Отрицателни стойности (-0,5 до 0)
+
+***
+
+## Отстраняване на проблеми при преглеждане
+
+### Изображението не се отваря
+
+**Възможни причини:**
+
+* Файлът е повреден по време на обработката
+* Неподдържан файлов формат
+* Недостатъчна памет за голямо изображение
+
+**Решения:**
+
+1. Опитайте да отворите във външен прозорец, за да проверите целостта на файла
+2. Проверете дали форматът на файла съответства на очаквания тип
+3. Затворете другите приложения, за да освободите памет
+4. Опитайте с по-малко/различно изображение
+
+### Черно-бяло изображение
+
+**Възможни причини:**
+
+* Диапазон на стойностите извън възможностите на дисплея
+* 32-битово плаващо изображение с необичайни стойности
+* Грешка в изчислението на индекса
+
+**Решения:**
+
+1. Проверете стойностите на пикселите – ако всички са много ниски или много високи, коригирайте диапазона на дисплея.
+2. Опитайте да отворите в QGIS или подобна програма с автоматична настройка на диапазона.
+3. Проверете лога за отстраняване на грешки от обработката за грешки.
+
+### Стойностите на пикселите изглеждат грешни
+
+**Възможни причини:**
+
+* Гледане на грешно изображение (оригинално срещу обработено)
+* Калибрирането не е приложено правилно
+* Данните от светлинния сензор не са включени във входните данни
+* Процентният режим е превключен неправилно
+
+**Решения:**
+
+1. Уверете се, че разглеждате обработения резултат (проверете суфикса на името на файла)
+2. Проверете състоянието на бутона за процентен режим
+3. Сравнете с известни добри изображения от същия набор от данни
+
+***
+
+## Следващи стъпки
+
+Сега, когато можете да разглеждате изображенията на цял екран:
+
+* [**Слоеве на изображенията**](image-layers.md) – Научете повече за многолентовата визуализация
+* [**Индекс/LUT Sandbox**](index-lut-sandbox.md) – Приложете персонализирани индекси и цветово картографиране
+* [**Формули за мултиспектрален индекс**](../project-settings/multispectral-index-formulas.md) – Разберете наличните индекси
+
+За работния процес на обработка вижте:
+
+* [**Обработка на изображения (GUI)**](../processing-images-gui/adding-files-to-a-project.md) – Пълен наръчник за обработка

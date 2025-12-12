@@ -1,17 +1,13 @@
-# Projects
+# GUI: Проекти
 
-Chloros allows you to create projects which can be reopened in the future.
+Chloros ви позволява да създавате проекти, които могат да бъдат отворени отново в бъдеще.
 
-## New Project
+## Нов проект
 
-<figure><img src=".gitbook/assets/project_new.JPG" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/project_new.JPG" alt=""><figcaption></figcaption></figure>Изберете „Нов проект“ от главното меню и въведете уникално име за вашия проект.
 
-Select "New Project" from the main menu and enter a unique name for your project.
+## Отваряне на проект
 
-## Open Project
+<figure><img src=".gitbook/assets/project_open.JPG" alt=""><figcaption></figcaption></figure>Изберете „Отвори проект“, за да видите списък с съществуващите проекти в папката „Проекти“. Ако няма проекти, второстепенното странично меню няма да се отвори. На горната снимка можете да видите някои проекти, създадени от GUI (t1, t2, t3). Проектите DATE\_TIME са създадени от CLI, като е използвана стандартната схема за именуване на проекти. Кликнете върху името на даден проект, за да го отворите.
 
-<figure><img src=".gitbook/assets/project_open.JPG" alt=""><figcaption></figcaption></figure>
-
-Select "Open Project" to see a list of existing projects in the Project Folder. If no projects exist the secondary side menu will not open. You can see some GUI created projects (t1, t2, t3) listed in the above photo. The DATE\_TIME projects were created by the CLI using the default project naming scheme. Clicking any project name will open it.
-
-Clicking the "Open Project Folder" button opens your computer's file explorer at the project path. You can adjust the project path in the [Project Settings](project-settings/page-2.md).
+Кликването върху бутона „Отвори папка с проекти“ отваря файловия мениджър на компютъра ви в пътя на проекта. Можете да настроите пътя на проекта в [Настройки на проекта](project-settings/project-settings.md).

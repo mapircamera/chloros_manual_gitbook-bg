@@ -4,21 +4,21 @@ metaLinks:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/output-image-formats
 ---
 
-# Output Image Formats
+# Формати на изходните изображения
 
-### TIFF (16-bit)
+### TIFF (16-битов)
 
-16-bit (pixel digital number 0 - 65535) TIFF (.tif) format output.
+16-битов (цифрово число на пиксел 0 - 65535) TIFF (.tif) формат на изхода.
 
-### TIFF (32-bit, Percent %)
+### TIFF (32-битов, процент %)
 
-32-bit (pixel float 0.0 - 1.0) TIFF (.tif) format output. Pixel values represent reflectance percentages where 0.0 = 0% and 1.0 = 100%.
+32-битов (пиксел с плаваща запетая 0,0 - 1,0) TIFF (.tif) формат на изхода. Стойностите на пикселите представляват проценти на отражателност, където 0,0 = 0% и 1,0 = 100%.
 
-### **JPG (8-bit)**
+### **JPG (8-битов)**
 
-8-bit (pixel digital number 0 -255) JPG (.jpg) format output.
+8-битов (пиксел цифрово число 0 -255) JPG (.jpg) формат на изхода.
 
-### **PNG (8-bit)**
+### **PNG (8-битов)**
 
-8-bit (pixel digital number 0 - 255) PNG (.png) format output. Lossless compression suitable for web viewing and visualization.
+8-битов (пиксел цифрово число 0 - 255) PNG (.png) формат на изхода. Беззагубно компресиране, подходящо за гледане и визуализация в интернет.
 

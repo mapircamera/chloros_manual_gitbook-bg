@@ -1,306 +1,306 @@
-# Finishing the Processing
+# Завършване на обработката
 
-Once Chloros completes processing, it's time to review your results, verify output quality, and prepare your processed images for use in your workflow. This page guides you through the final steps and next actions.
+След като Chloros завърши обработката, е време да прегледате резултатите, да проверите качеството на изхода и да подготвите обработените изображения за използване във вашия работен процес. Тази страница ви води през последните стъпки и следващите действия.
 
-## Processing Complete Indication
+## Индикация за завършена обработка
 
-When processing finishes successfully, you'll see several indicators:
+Когато обработката приключи успешно, ще видите няколко индикатора:
 
-* ✅ **Progress bar**: Reaches 100% completion
-* ✅ **Debug Log**: Shows "Processing Complete" message
-* ✅ **Start button**: Becomes enabled again (ready for next processing run)
-* ✅ **Output files**: All processed images saved to camera model subfolder
-
-***
-
-## Locating Your Processed Images
-
-### Opening the Output Folder
-
-1. Click the **Main Menu** <img src="../.gitbook/assets/image (1) (1).png" alt="" data-size="line"> icon (top left)
-2. Select **"Open Project Folder"**
-3. Your file explorer opens to the project directory
-4. Locate your project by name
+* ✅ **Индикатор за напредъка**: достига 100% завършеност
+* ✅ **Дневник за отстраняване на грешки**: показва съобщението „Обработката е завършена“
+* ✅ **Бутон „Старт“**: отново става активен (готов за следваща обработка)
+* ✅ **Изходни файлове**: Всички обработени изображения са запазени в подпапката на модела на камерата
 
 ***
 
-## Reviewing Processed Images
+## Намиране на обработените изображения
 
-### Quick Preview in File Explorer
+### Отваряне на папката с изходните файлове
 
-**Windows built-in preview:**
-
-1. Navigate to camera model subfolder
-2. Select an image file
-3. Preview appears in Windows Explorer preview pane
-4. Use arrow keys to browse through images
-
-### Preview in External Image Viewers
-
-**Recommended viewers:**
-
-* **QGIS** - Free GIS software (best for georeferenced multispectral analysis)
-* **IrfanView** - Fast, lightweight image viewer (supports TIFF)
-* **Adobe Photoshop** - Professional editing (TIFF support)
-* **GIMP** - Free alternative to Photoshop
-* **Windows Photos** - Basic viewing (may not support 16-bit TIFF)
-
-### Preview in Chloros Image Viewer
-
-Use Chloros's built-in Image Viewer for advanced visualization:
-
-1. Click an image thumbnail in the File Browser
-2. Image opens in the main preview area
-3. Click **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> tab in left sidebar
-4. Use [Index/LUT Sandbox](../image-viewer-gui/index-lut-sandbox.md) for interactive analysis
-
-See [Image Viewer](../image-viewer-gui/page-3.md) for detailed instructions.
+1. Кликнете върху иконата **Главно меню** <img src="../.gitbook/assets/image (1) (1).png" alt="" data-size="line"> (в горния ляв ъгъл)
+2. Изберете **„Отвори папка на проекта“**
+3. Файловият ви мениджър се отваря в директорията на проекта
+4. Намерете проекта си по име
 
 ***
 
-## Reviewing the Debug Log
+## Преглед на обработените изображения
 
-### Check for Warnings or Errors
+### Бърз преглед във файловия браузър
 
-1. Open **Debug Log** <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> tab
-2. Scroll through messages
-3. Look for yellow warnings or red errors
-4. Review any issues noted
-5. Contact MAPIR support for assistance
+**Вграден преглед в Windows:**
 
-### Saving the Log
+1. Преминете към подпапката на модела на камерата
+2. Изберете файл с изображение
+3. Прегледът се показва в панела за преглед на Windows Explorer
+4. Използвайте клавишите със стрелки, за да разглеждате изображенията
 
-To keep a record of processing or to send to MAPIR Support:
+### Предварителен преглед във външни програми за преглед на изображения
 
-1. Click **"Copy"** or **"Download"** button
-2. Save as text file in project folder
-3. Include with project documentation
-4. Send to MAPIR support if issues encountered
+**Препоръчителни програми за преглед:**
 
-***
+* **QGIS** – безплатен софтуер за ГИС (най-подходящ за мултиспектрален анализ с геореференция)
+* **IrfanView** – бърза и лека програма за преглед на изображения (поддържа TIFF)
+* **Adobe Photoshop** - Професионална редакция (поддържа TIFF)
+* **GIMP** - Безплатна алтернатива на Photoshop
+* **Windows Photos** - Основно преглеждане (може да не поддържа 16-битови TIFF)
 
-## Common Output Issues and Solutions
+### Предварителен преглед в Chloros Image Viewer
 
-### Issue: Missing Output Files
+Използвайте вградения Image Viewer на Chloros за разширена визуализация:
 
-**Possible causes:**
+1. Кликнете върху миниатюра на изображение в File Browser
+2. Изображението се отваря в основната област за предварителен преглед
+3. Кликнете върху **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> в лявата странична лента.
+4. Използвайте [Index/LUT Sandbox](../image-viewer-gui/index-lut-sandbox.md) за интерактивен анализ.
 
-* Files didn't meet processing criteria
-* Target-only images (excluded from export)
-* Disk space ran out during export
-* File corruption during processing
-
-**Solutions:**
-
-1. Check Debug Log for skip/error messages
-2. Verify disk space was sufficient
-3. Count files: Should match (original count - target count) × (indices + 1)
-4. Re-import and reprocess any missing files
-
-### Issue: Dark or Bright Edges (Vignetting Still Visible)
-
-**Possible causes:**
-
-* Vignette correction disabled
-* Camera/lens not in Chloros profile database
-* Extreme vignetting beyond correction capability
-
-**Solutions:**
-
-1. Verify vignette correction was enabled in Project Settings
-2. Check camera model correctly detected
-3. Contact MAPIR support if vignetting persists
-
-### Issue: Incorrect Colors or Values
-
-**Possible causes:**
-
-* No calibration targets detected
-* Wrong calibration target model selected
-* Reflectance calibration disabled
-* Poor quality target images
-
-**Solutions:**
-
-1. Verify reflectance calibration was enabled
-2. Check "Target found" messages in Debug Log
-3. Review target image quality
-4. Reprocess with proper targets marked
-
-### Issue: NDVI Values Seem Wrong
-
-**Expected NDVI ranges:**
-
-* **Water, rocks, soil**: -0.1 to 0.2
-* **Sparse/unhealthy vegetation**: 0.2 to 0.4
-* **Moderate vegetation**: 0.4 to 0.6
-* **Healthy, dense vegetation**: 0.6 to 0.9
-
-**If values are outside these ranges:**
-
-1. Verify reflectance calibration was applied
-2. Verify light sensor log was included
-3. Check calibration targets were detected
-4. Ensure correct camera model was detected
-5. Review target image capture timing and conditions
+Вижте [Image Viewer](../image-viewer-gui/opening-an-image-full-screen.md) за подробни инструкции.
 
 ***
 
-## Using Your Processed Images
+## Преглед на лога за отстраняване на грешки
 
-### For Photogrammetry / Orthomosaic Creation
+### Проверете за предупреждения или грешки
 
-**Recommended workflow:**
+1. Отворете **Debug Log** <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> (Дневник за отстраняване на грешки)
+2. Превъртете съобщенията
+3. Потърсете жълти предупреждения или червени грешки
+4. Прегледайте всички отбелязани проблеми
+5. Свържете се с поддръжката на MAPIR за помощ
 
-1. **Import calibrated reflectance images** into photogrammetry software:
+### Запазване на дневника
+
+За да запазите записите от обработката или да ги изпратите на поддръжката на MAPIR:
+
+1. Кликнете върху бутона **„Копирай“** или **„Изтегли“**
+2. Запазете като текстов файл в папката на проекта
+3. Приложете към документацията на проекта
+4. Изпратете до поддръжката на MAPIR, ако са възникнали проблеми
+
+***
+
+## Чести проблеми с изхода и решения
+
+### Проблем: Липсващи файлове с изход
+
+**Възможни причини:**
+
+* Файловете не отговарят на критериите за обработка
+* Изображения само за целта (изключени от експортирането)
+* Изчерпано дисково пространство по време на експортирането
+* Повреда на файла по време на обработката
+
+**Решения:**
+
+1. Проверете дневника за отстраняване на грешки за съобщения за пропуски/грешки
+2. Уверете се, че дисковото пространство е достатъчно
+3. Пребройте файловете: Трябва да съвпадат (оригинален брой - брой за целта) × (индекси + 1)
+4. Импортирайте отново и обработете отново липсващите файлове.
+
+### Проблем: Тъмни или светли краища (винетирането все още е видимо)
+
+**Възможни причини:**
+
+* Корекцията на винетирането е деактивирана.
+* Камерата/обективът не е в базата данни с профили на Chloros.
+* Екстремно винетиране, което надхвърля възможностите за корекция.
+
+**Решения:**
+
+1. Проверете дали корекцията на винетирането е активирана в настройките на проекта.
+2. Проверете дали моделът на камерата е разпознат правилно.
+3. Свържете се с поддръжката на MAPIR, ако винетирането продължава.
+
+### Проблем: Неправилни цветове или стойности
+
+**Възможни причини:**
+
+* Не са открити калибрационни цели.
+* Избран е грешен модел калибрационна цел.
+* Калибрацията на отражателната способност е деактивирана.
+* Качеството на целевите изображения е лошо.
+
+**Решения:**
+
+1. Проверете дали калибрирането на отражателната способност е активирано.
+2. Проверете съобщенията „Намерена цел“ в дневника за отстраняване на грешки.
+3. Проверете качеството на изображенията на целите.
+4. Преобразувайте отново с маркирани подходящи цели.
+
+### Проблем: Стойностите на NDVI изглеждат неправилни.
+
+**Очаквани диапазони на NDVI:**
+
+* **Вода, скали, почва**: от -0,1 до 0,2
+* **Редка/нездравословна растителност**: от 0,2 до 0,4
+* **Умерена растителност**: от 0,4 до 0,6
+* **Здравословна, гъста растителност**: от 0,6 до 0,9
+
+**Ако стойностите са извън тези диапазони:**
+
+1. Проверете дали е приложена калибрация на отражателната способност.
+2. Проверете дали е включен регистър на светлинния сензор.
+3. Проверете дали са открити калибрационни цели.
+4. Уверете се, че е открит правилният модел камера.
+5. Проверете времето и условията за заснемане на целевото изображение.
+
+***
+
+## Използване на обработените изображения
+
+### За фотограметрия/създаване на ортомозаик
+
+**Препоръчителен работен процес:**
+
+1. **Импортирайте калибрирани изображения на отражателната способност** във фотограметричния софтуер:
    * Pix4Dmapper
    * Agisoft Metashape
    * DroneDeploy
    * WebODM
-2. **Keep EXIF metadata**: Ensure GPS data preserved for geotagging
-3. **Calibrated workflows**: Use reflectance images for scientific accuracy
-4. **Process index mosaics**: Create NDVI orthomosaics from individual index images
-5. **Export georeferenced GeoTIFF**: For use in GIS applications
+2. **Запазете EXIF метаданните**: Уверете се, че GPS данните са запазени за геотагиране.
+3. **Калибрирани работни процеси**: Използвайте изображения на отражателната способност за научна точност.
+4. **Обработвайте индексни мозайки**: Създайте ортомозайки NDVI от отделни индексни изображения
+5. **Експортирайте геореференцирани GeoTIFF**: За използване в GIS приложения
 
-### For GIS Analysis
+### За GIS анализ
 
-**Recommended workflow:**
+**Препоръчителен работен процес:**
 
-1. **Load into QGIS, ArcGIS, or similar**
-2. **Use 16-bit TIFF** reflectance images for multi-band analysis
-3. **Use index images** (NDVI, NDRE) as ready-to-use vegetation layers
-4. **Raster calculator**: Combine bands for custom analysis
-5. **Export**: Create classification maps, change detection, vegetation health maps
+1. **Заредете в QGIS, ArcGIS или подобен софтуер**
+2. **Използвайте 16-битови TIFF** образи на отражателната способност за многолентов анализ
+3. **Използвайте индексни образи** (NDVI, NDRE) като готови за употреба растителни слоеве
+4. **Растер калкулатор**: Комбинирайте ленти за персонализиран анализ
+5. **Експортиране**: Създаване на класификационни карти, откриване на промени, карти на състоянието на растителността
 
-### For Direct Analysis / Reporting
+### За директен анализ/отчитане
 
-**Recommended workflow:**
+**Препоръчителен работен процес:**
 
-1. **Use index images with LUT colors** for visual reports
-2. **Extract statistics**: Mean NDVI per field/plot
-3. **Time series**: Compare indices across multiple sessions
-4. **Generate reports**: Include maps, statistics, and visualizations
-
-***
-
-## Archiving and Backup
-
-### Recommended Backup Strategy
-
-**What to save:**
-
-* ✅ **Original RAW/JPG images** - Archive on separate drive/cloud
-* ✅ **Processed outputs** - Keep calibrated images and indices
-* ✅ **Project file** - Contains all settings for reprocessing if needed
-* ✅ **Debug Log** - Documents processing details
-* ✅ **Calibration target images** - For verification and reprocessing
-
-**Storage recommendations:**
-
-* **Immediate backup**: External hard drive
-* **Long-term archive**: Cloud storage (Google Drive, Dropbox, etc.)
-* **Critical data**: Keep 2-3 copies in different locations
+1. **Използвайте индексни изображения с LUT цветове** за визуални отчети
+2. **Извличане на статистически данни**: Средна стойност NDVI за поле/парцел
+3. **Времеви редове**: Сравнете индексите в няколко сесии
+4. **Генериране на отчети**: Включете карти, статистики и визуализации
 
 ***
 
-## Next Processing Runs
+## Архивиране и архивно копие
 
-### Reusing Project Settings
+### Препоръчителна стратегия за архивно копие
 
-If processing similar datasets in the future:
+**Какво да запазите:**
 
-1. **Save Project Template** (if not already done)
-2. **Create new project** using saved template
-3. **Import new images**
-4. **Process** with identical settings for consistency
+* ✅ **Оригинални RAW/JPG изображения** - Архивирайте на отделен диск/в облака
+* ✅ **Обработени резултати** – запазете калибрираните изображения и индекси
+* ✅ **Проектен файл** – съдържа всички настройки за повторно обработване, ако е необходимо
+* ✅ **Дневник за отстраняване на грешки** – документира подробностите за обработката
+* ✅ **Изображения за калибриране** – за проверка и повторно обработване
 
-### Batch Processing Multiple Sessions
+**Препоръки за съхранение:**
 
-For multiple sessions/datasets:
-
-**Option 1: GUI - Multiple Projects**
-
-* Create separate project for each session
-* Use consistent template settings
-* Process one at a time
-
-**Option 2: Chloros CLI (Chloros+ only)**
-
-* Automate batch processing
-* Process multiple folders with scripts
-* See [CLI Documentation](../CLI.md)
-
-**Option 3: Python SDK (Chloros+ only)**
-
-* Programmatic control
-* Integration with analysis pipelines
-* See [API Documentation](../api-python-sdk.md)
+* **Незабавно архивиране**: Външен твърд диск
+* **Дългосрочно архивиране**: Облачно съхранение (Google Drive, Dropbox и др.)
+* **Критични данни**: Съхранявайте 2-3 копия на различни места
 
 ***
 
-## Troubleshooting Post-Processing
+## Следващи обработки
 
-### Re-Processing with Different Settings
+### Повторна употреба на настройките на проекта
 
-If results aren't satisfactory:
+Ако в бъдеще обработвате подобни набори от данни:
 
-1. Keep original images (never delete)
-2. Open same project in Chloros
-3. Adjust settings in Project Settings panel
-4. Process again - outputs will overwrite previous results
+1. **Запазете шаблона на проекта** (ако все още не сте го направили)
+2. **Създайте нов проект**, използвайки запазения шаблон
+3. **Импортирайте нови изображения**
+4. **Обработвайте** с идентични настройки за последователност
 
-### Processing Subset of Images
+### Групова обработка на няколко сесии
 
-To reprocess only specific images:
+За няколко сесии/набора от данни:
 
-1. Create new project
-2. Import only the images needing reprocessing
-3. Use same settings template
-4. Process smaller dataset
+**Вариант 1: GUI - няколко проекта**
 
-### Getting Help
+* Създайте отделен проект за всяка сесия.
+* Използвайте последователни настройки на шаблона.
+* Обработвайте по една наведнъж.
 
-If you encounter issues:
+**Вариант 2: Chloros CLI (само Chloros+)**
 
-* 📧 **Email**: info@mapir.camera (include Debug Log)
-* 🌐 **Support**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
-* 📚 **FAQ**: [Frequently Asked Questions](../faq.md)
-* 📖 **Documentation**: [Chloros Manual](../)
+* Автоматизирайте пакетната обработка.
+* Обработвайте множество папки със скриптове.
+* Вижте [CLI Документация](../CLI.md)
 
-***
+**Вариант 3: Python SDK (само Chloros+)**
 
-## Summary: Complete Workflow
-
-You've now completed the full Chloros processing workflow:
-
-1. ✅ **Created project** - See [Projects](../projects.md)
-2. ✅ **Added files** - See [Adding Files](page-1.md)
-3. ✅ **Adjusted settings** - See [Adjusting Project Settings](adjusting-project-settings.md)
-4. ✅ **Marked targets** - See [Choosing Target Images](choosing-target-images.md)
-5. ✅ **Started processing** - See [Starting the Processing](starting-the-processing.md)
-6. ✅ **Monitored progress** - See [Monitoring the Processing](monitoring-the-processing.md)
-7. ✅ **Reviewed results** - This page
-
-**Your calibrated, reflectance-corrected multispectral images are ready for analysis!**
+* Програмно управление
+* Интеграция с аналитични тръбопроводи
+* Вижте [API Документация](../api-python-sdk.md)
 
 ***
 
-## Additional Resources
+## Отстраняване на проблеми след обработката
 
-### Advanced Features
+### Повторна обработка с различни настройки
 
-* [**Image Viewer**](../image-viewer-gui/page-3.md) - Interactive visualization and analysis
-* [**Index/LUT Sandbox**](../image-viewer-gui/index-lut-sandbox.md) - Custom index testing
-* [**Multispectral Index Formulas**](../project-settings/multispectral-index-formulas.md) - Complete index reference
+Ако резултатите не са задоволителни:
 
-### Automation & Integration
+1. Запазете оригиналните изображения (никога не ги изтривайте)
+2. Отворете същия проект в Chloros
+3. Настройте параметрите в панела „Настройки на проекта“
+4. Обработете отново – резултатите ще заменят предишните
 
-* [**CLI Documentation**](../CLI.md) - Command-line batch processing
-* [**Python SDK**](../api-python-sdk.md) - Programmatic automation
-* [**Chloros+ Features**](../#chloros) - Advanced processing capabilities
+### Обработка на подмножество от изображения
 
-### Support & Learning
+За да обработите отново само определени изображения:
 
-* [**FAQ**](../faq.md) - Common questions answered
-* [**Calibration Targets**](../calibration-targets.md) - Understanding reflectance calibration
-* [**Supported Cameras**](../supported-cameras.md) - Compatible hardware
+1. Създайте нов проект
+2. Импортирайте само изображенията, които се нуждаят от повторно обработване
+3. Използвайте същия шаблон с настройки
+4. Обработете по-малък набор от данни
+
+### Получаване на помощ
+
+Ако срещнете проблеми:
+
+* 📧 **Имейл**: info@mapir.camera (включете Debug Log)
+* 🌐 **Поддръжка**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
+* 📚 **Често задавани въпроси**: [Често задавани въпроси](../faq.md)
+* 📖 **Документация**: [Ръководство за Chloros](../)
+
+***
+
+## Обобщение: Пълен работен процес
+
+Вече сте завършили пълния работен процес на Chloros:
+
+1. ✅ **Създаден проект** - Вижте [Проекти](../projects.md)
+2. ✅ **Добавени файлове** - Вижте [Добавяне на файлове](adding-files-to-a-project.md)
+3. ✅ **Настроени настройки** - Вижте [Настройка на настройките на проекта](adjusting-project-settings.md)
+4. ✅ **Маркирани цели** - Вижте [Избор на целеви изображения](choosing-target-images.md)
+5. ✅ **Започнато обработване** - Вижте [Започване на обработването](starting-the-processing.md)
+6. ✅ **Наблюдаван напредък** - Вижте [Наблюдение на обработването](monitoring-the-processing.md)
+7. ✅ **Прегледани резултати** - Тази страница
+
+**Вашите калибрирани, коригирани по отражателност мултиспектрални изображения са готови за анализ!**
+
+***
+
+## Допълнителни ресурси
+
+### Разширени функции
+
+* [**Image Viewer**](../image-viewer-gui/opening-an-image-full-screen.md) - Интерактивна визуализация и анализ
+* [**Индекс/LUT Sandbox**](../image-viewer-gui/index-lut-sandbox.md) - Тестване на персонализиран индекс
+* [**Формули за мултиспектрален индекс**](../project-settings/multispectral-index-formulas.md) - Пълен справочник за индекси
+
+### Автоматизация и интеграция
+
+* [**CLI Документация**](../CLI.md) – Обработка на пакетни команди
+* [**Python SDK**](../api-python-sdk.md) - Програмна автоматизация
+* [**Chloros+ Функции**](../#chloros) - Разширени възможности за обработка
+
+### Поддръжка и обучение
+
+* [**Често задавани въпроси**](../faq.md) - Отговори на често задавани въпроси
+* [**Цели за калибриране**](../calibration-targets.md) - Разбиране на калибрирането на отражателната способност
+* [**Поддържани камери**](../supported-cameras.md) - Съвместим хардуер
