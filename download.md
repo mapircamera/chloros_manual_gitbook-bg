@@ -3,7 +3,6 @@ metaLinks:
   alternates:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/download
 ---
-
 # Изтегляне
 
 Изтеглете най-новата версия на Chloros за Windows, за да започнете да работите с мултиспектрална обработка на изображения.
@@ -166,3 +165,5 @@ pip install chloros-sdk
 **Безплатна версия**: Достъпна за лична и търговска употреба с ограничения на функциите.
 
 **Chloros+**: Лиценз на базата на абонамент за разширени функции и търговско внедряване.
+
+<figure><img src=".gitbook/assets/t3-125_2.jpg" alt=""><figcaption></figcaption></figure>
