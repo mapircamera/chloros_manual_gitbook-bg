@@ -88,7 +88,7 @@
 
 Можете да изберете типа на картографския слой (от ляво на дясно):
 
- <img src="../.gitbook/assets/image (23).png" alt="" data-size="original">### Терен
+ <img src="../.gitbook/assets/image (23).png" alt="" data-size="line">### Терен
 
 Показва профили на надморската височина и карти с подробности (пътища и др.)
 
