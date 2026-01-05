@@ -29,6 +29,8 @@
 
 ## ПРОГРАМА ЗА ПРЕГЛЕД НА ИЗОБРАЖЕНИЯ (GUI)
 
+* [Мрежа от изображения](image-viewer-gui/image-grid.md)
 * [Отваряне на изображение на цял екран](image-viewer-gui/opening-an-image-full-screen.md)
 * [Слоеве на изображението](image-viewer-gui/image-layers.md)
 * [Индекс/LUT Sandbox](image-viewer-gui/index-lut-sandbox.md)
+* [Маркери на картата](image-viewer-gui/map-markers.md)
