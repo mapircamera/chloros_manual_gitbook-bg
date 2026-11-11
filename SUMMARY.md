@@ -66,7 +66,7 @@
 * [Динамична адаптация на изчислителната мощност](processing-architecture/dynamic-compute-adaptation.md)
 * [Конвейер за обработка](processing-architecture/processing-pipeline.md)
 
-## Референции (CLI &amp; SDK)
+## Референции (CLI & SDK)
 
 * [Chloros CLI Референция](reference/cli-reference.md)
 * [Chloros Python SDK Референция](reference/sdk-reference.md)
