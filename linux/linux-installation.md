@@ -1,8 +1,12 @@
 # Инсталиране на Linux
 
-Chloros се разпространява за Linux като пакети `.deb`, които инсталират CLI и сървъра на бекенда. Python SDK е отделен pip пакет (също включен в `.deb` като wheel с съответстваща версия).
+Chloros се разпространява за Linux под формата на пакети `.deb`, които инсталират CLI, бекенд сървъра и Python SDK (за системата `python3`, както и wheel файл, съответстващ на версията, за virtualenvs).
 
-Имената на файловете на пакетите съдържат версията и архитектурата: `chloros_1.2.0_amd64.deb` за x86_64 и `chloros_1.2.0_arm64_jp6.deb` за JetPack 6 Jetson версии. Заместете файла, който сте изтеглили, в командите по-долу.
+Имената на файловете на пакетите съдържат версията и архитектурата: `chloros_1.3.0_amd64.deb` за x86_64, и `chloros_1.3.0_arm64_jp6.deb` за arm64 (NVIDIA Jetson, JetPack 6). Заместете файла, който сте изтеглили, в командите по-долу.
+
+{% hint style="info" %}
+**Ново в 1.3.0: програмите се доставят в разпакетиран вид.** Бекендът и CLI-интерфейсът се инсталират като папки, `/usr/lib/chloros/backend/` и `/usr/lib/chloros/cli/`, вместо като единични саморазпаковащи се файлове. Те вече не се разпаковат сами във временна папка при всяко стартиране, така че стартират много по-бързо (на x86_64 бекендът преди отнемаше около 100 секунди за разпаковане при всяко стартиране) и вече не се нуждаят от няколко GB свободно място в `/tmp`. Размерът на amd64 `.deb` също е около половината от предишния.
+{% endhint %}
 
 ***
 
@@ -15,35 +19,34 @@ Chloros се разпространява за Linux като пакети `.deb
 | **Дистрибуция** | Ubuntu 22.04 LTS+ / Debian 12+ | Ubuntu 24.04 LTS |
 | **Процесор** | x86_64 (Intel/AMD) | Intel Core i7 или по-добър |
 | **Памет (RAM)** | 8 GB | 16 GB или повече |
-| **Графична карта** | Няма (обработка от процесора) | NVIDIA GPU с 4 GB+ VRAM (12 GB+ отключва `GPU_PARALLEL`, 7 GB+ поддържа Texture Aware изключено за пътя с едно изображение) |
+| **Графична карта** | Няма (обработка от процесора) | NVIDIA GPU с 4 GB+ VRAM (12 GB+ отключва `GPU_PARALLEL`, 7 GB+ поддържа Texture Aware изключен при работа с единични изображения) |
 | **Памет** | 2 GB свободно място | SSD с 10 GB+ свободно място |
 | **Python** | Python 3.7+ (за SDK) | Python 3.10+ |
 
 > **Ubuntu 20.04 и Debian 11 не се поддържат.** Списъкът със зависимости на `.deb` е
-> извлечен от това, към което бекендът на Chloros действително се свързва, и това включва
-> `libc6 (>= 2.34)`. Focal и bullseye се доставят с glibc 2.31, така че `apt` отказва
-> инсталирането напълно, вместо да допусне то да се провали по-късно по време на изпълнение.
+> извлечен от това, към което всъщност се свързва бекендът на Chloros, и това включва
+> `libc6`, по-нова от glibc 2.31, която се доставя с focal и bullseye, така че `apt` отказва
+> инсталацията напълно, вместо да допусне тя да се провали по-късно по време на изпълнение.
 
 ### Инсталиране
 
 ```bash
-sudo dpkg -i chloros_1.2.0_amd64.deb
-sudo apt-get install -f    # pulls the declared dependencies (libibverbs1, libcap2-bin)
+sudo apt install ./chloros_1.3.0_amd64.deb
 ```
 
 {% hint style="info" %}
-`dpkg -i` не разрешава зависимостите. Ако докладва липсващи пакети, `sudo apt-get install -f` (или `sudo apt --fix-broken install`) завършва инсталацията — това е нормалният процес, а не грешка.
+**Използвайте `apt install ./…`, а не `dpkg -i`.** `apt` разрешава зависимостите на пакета и също така инсталира това, което препоръчва: изискванията на Python SDK, `python3-numpy` и `python3-requests`. `dpkg -i` не инсталира нито едното, нито другото. CLI-то и бекендът са самостоятелни и работят без тях, но `import chloros_sdk` се нуждае от тях; изходът от инсталацията посочва всички липсващи компоненти. Запазете `./`, за да може `apt` да инсталира файла, вместо да търси пакет с това име. Пакетът също така декларира `libgl1`, който се зарежда от включения в пакета OpenCV и може да липсва в минималния образ на сървъра.
 {% endhint %}
 
 Проверете инсталацията:
 
-
-
-<!-- SCREENSHOT-NEEDED: Terminal on Ubuntu 22.04 immediately after `sudo dpkg -i chloros_1.2.0_amd64.deb`, showing the full postinst output: the "Chloros installed successfully!" banner, the Usage lines, the "Python SDK:" block naming the bundled wheel path under /usr/lib/chloros/sdk/, any "GPU Acceleration:" detection line, and the closing "Systemd Service (optional): sudo systemctl enable --now chloros-backend.service" hint -->
-
 ```bash
-chloros-cli --version    # prints "Chloros CLI 1.2.0"
-```***
+chloros-cli --version    # prints "Chloros CLI 1.3.0"
+```
+
+<!-- SCREENSHOT-NEEDED: Terminal on Ubuntu 22.04 immediately after `sudo apt install ./chloros_1.3.0_amd64.deb`, showing the full postinst output: the "Chloros installed successfully!" banner, the Usage lines, the "Python SDK:" block ("chloros_sdk 1.3.0 for python3" and the "In a virtualenv: pip install /usr/lib/chloros/sdk/chloros_sdk-*.whl" line), any "GPU Acceleration:" detection line, and the closing "Systemd Service (optional): sudo systemctl enable --now chloros-backend@<user>.service" hint -->
+
+***
 
 ## Linux arm64 (NVIDIA Jetson)
 
@@ -53,41 +56,34 @@ chloros-cli --version    # prints "Chloros CLI 1.2.0"
 | --- | --- | --- |
 | **Платформа** | NVIDIA Jetson с JetPack 6 | Jetson Orin NX 16 GB или AGX Orin |
 | **JetPack** | JetPack 6.x | Най-новата версия на JetPack 6 |
-| **Памет (RAM)** | 8 GB (споделена между GPU и CPU) | 16 GB+ споделена (12 GB+ е прагът за паралелни GPU работници) |
+| **Памет (RAM)** | 8 GB (споделена между GPU и CPU) | 16 GB+ споделена (12 GB+ е прагът за паралелна обработка) |
 | **Памет** | 2 GB свободно място | NVMe SSD с 10 GB+ свободно място |
 | **Python** | Python 3.7+ (за SDK) | Python 3.10+ |
 
 ### Инсталиране
 
 ```bash
-sudo dpkg -i chloros_1.2.0_arm64_jp6.deb
-sudo apt-get install -f
+sudo apt install ./chloros_1.3.0_arm64_jp6.deb
 chloros-cli --version
 ```
 
-Същата конфигурация като amd64 `.deb`, с CUDA версия, оптимизирана за Jetson Orin / Orin NX / Orin Nano. За поведението на Jetson по отношение на паметта, термичните характеристики и внедряването на място вижте [Ръководството за NVIDIA Jetson](nvidia-jetson-guide.md).
+Същата структура като amd64 `.deb` (включва Python SDK, буфери за приемане и бекенд услуги), за Jetson Orin / Orin NX / Orin Nano на **JetPack 6** (L4T R36). PyTorch е CUDA версията на JetPack 6 за Orin, така че обработката на GPU, включително Texture Aware debayer, се изпълнява на GPU-то на Jetson. Пакетът не съдържа самата CUDA: той използва библиотеките CUDA и cuDNN, които JetPack 6 инсталира (`sudo apt install nvidia-jetpack` на образ, в който те липсват). Когато няма наличен CUDA GPU, обработката се изпълнява на CPU и `--debayer texture-aware` използва стандартния дебейър (бекендът записва един ред `[DEBAYER] … needs a CUDA GPU …`, в който се посочва причината). За поведението на Jetson по отношение на паметта, термичните характеристики и внедряването на място вижте [Ръководството за NVIDIA Jetson](nvidia-jetson-guide.md).***
 
-***
+## Инсталиране на Python SDK (за всички версии на Linux)**`.deb` инсталира SDK вместо вас.** И двата пакета (amd64 и Jetson) го инсталират за системата `python3`, така че `import chloros_sdk` работи веднага след инсталацията, без pip и без мрежа. Неговите пакети (`chloros_sdk`, `lattice_sdk`, `lattice_cam`, `arena_api` и заредителите на проекти) се поместват в `/usr/lib/python3/dist-packages`, принадлежащ на пакета: при актуализация те се заменят, а при премахване на пакета се премахват. Версията винаги съответства на инсталирания от вас CLI и бекенд.
 
-## Инсталиране на Python и SDK (всички Linux)
+Собствените изисквания на SDK, `python3-numpy` и `python3-requests`, са **препоръчителни, а не задължителни** от пакета: `sudo apt install ./chloros_<version>_<arch>.deb` ги инсталира, а `dpkg -i` – не. Изходът от инсталацията отчита версията на SDK, която `python3` импортира, всички липсващи изисквания, както и всеки `chloros_sdk`, намиращ се другаде в пътя на `python3`, който засенчва копието на пакета (като например такъв, инсталиран по-рано с `pip install --user`).**В virtualenv**, който не вижда системните пакети, инсталирайте приложеното wheel в него (изцяло офлайн):
 
-SDK е чист Python HTTP клиент за бекенда, така че един и същ пакет работи както на amd64, така и на arm64. Два източника:**От PyPI** — публикуваната стабилна версия:
+```bash
+pip install /usr/lib/chloros/sdk/chloros_sdk-*.whl
+```
+
+**От PyPI** — само за машина, на която няма инсталиран пакет Chloros, чийто SDK управлява бекенд на друга машина (вижте [Режим „Remote-Backend“](../reference/sdk-reference.md#remote-backend-mode-pip-only-host-via-tunnel)):
 
 ```bash
 pip install chloros-sdk
 ```
 
-**От приложеното wheel** — гарантирано, че съответства на CLI/backend, който току-що сте инсталирали (използвайте това, когато вашият `.deb` е по-нов от този в PyPI):
-
-```bash
-pip install --user /usr/lib/chloros/sdk/chloros_sdk-*.whl
-```
-
-{% hint style="warning" %}
-**Дистрибуциите по PEP 668** (Ubuntu 23.10+, Debian 12+) не позволяват инсталиране чрез pip в цялата система. Използвайте `pip install --user …`, виртуална среда или `sudo pip install --break-system-packages …`. Инсталаторът на пакета никога не инсталира автоматично SDK във вашата система Python — този избор се оставя на вас.
-{% endhint %}
-
-Допълнителни опции:
+Допълнителни опции за инсталиране чрез pip (в virtualenv или PyPI):
 
 | Допълнение | Команда | Добавя |
 | --- | --- | --- |
@@ -97,11 +93,11 @@ pip install --user /usr/lib/chloros/sdk/chloros_sdk-*.whl
 Проверете SDK:
 
 ```bash
-python -c "import chloros_sdk; print(chloros_sdk.__version__)"
+python3 -c "import chloros_sdk; print(chloros_sdk.__version__)"
 ```
 
 {% hint style="info" %}
-`.deb` инсталира Chloros, CLI и бекенда. Python, SDK комуникира с този бекенд през локална мрежа HTTP API (`http://127.0.0.1:5000`) и го стартира автоматично, когато е необходимо. Винаги използвайте буквалния IPv4 адрес, вместо `localhost` — `localhost` може да се разреши като `::1` и да отнеме около две секунди на заявка.
+Python SDK-то комуникира с бекенда, който `.deb` инсталира чрез локален HTTP API (`http://127.0.0.1:5000`). `ChlorosLocal` и помощните програми за свързване го стартират автоматично, когато е необходимо; `connect_all()` на запазен проект никога не го прави, затова на машина без монитор стартирайте бекенда като [услуга](#always-on-ptp-for-headless-hosts). Винаги използвайте буквалния IPv4 адрес, а не `localhost` — `localhost` може да се преобразува в `::1` и да отнеме около две секунди на заявка.
 {% endhint %}
 
 ***
@@ -110,16 +106,16 @@ python -c "import chloros_sdk; print(chloros_sdk.__version__)"
 
 ### 1. Влизане
 
-Достъпът до CLI и SDK изисква платен план Chloros+ (**Copper** или по-висок), което се прилага от страна на сървъра: потребител, който не е влязъл в системата, получава `401 AUTH_REQUIRED`, а потребител с безплатен план (Iron) получава `403 PLAN_UPGRADE_REQUIRED`.
+Достъпът до CLI и SDK изисква платен план Chloros+ (**Copper** или по-висок), което се налага от страна на сървъра: излезлият от системата потребител получава `401 AUTH_REQUIRED`, а потребител с безплатен план (Iron) получава `403 PLAN_UPGRADE_REQUIRED`.
 
 ```bash
 chloros-cli login your@email.com 'your-password'
 ```
 
-Удостоверенията се кешират в `~/.chloros/user_session.json`.
+Удостоверенията се съхраняват в кеш в `~/.chloros/user_session.json`.
 
-{% hint style="warning" %}
-**Трябва да влезете отново след всяка инсталация или актуализация.** Скриптът `prerm` на пакета умишлено изчиства `~/.chloros/user_session.json` и кеширания лиценз за всеки потребител на компютъра, така че всяка нова версия винаги проверява валидността на лиценза, вместо да се доверява на остарял кеш.
+{% hint style="info" %}
+**При ъпгрейд данните за вход се запазват; при премахване те се изтриват.** Инсталирането на по-нова версия `.deb` върху съществуваща инсталация (включително чрез `chloros-cli update`) запазва `~/.chloros/user_session.json` и кеширания лиценз, така че задачите в CLI/SDK без графичен интерфейс продължават да работят. Премахването на пакета (`sudo apt remove chloros`) изчиства запазените данни за вход и кеша на лиценза за всеки потребител на компютъра, така че при нова инсталация отново е необходим `chloros-cli login`.
 {% endhint %}
 
 ### 2. Проверете състоянието на лиценза си
@@ -140,15 +136,15 @@ chloros-cli selftest
 
 | # | Проверка | Какво доказва |
 | --- | --- | --- |
-| 1 | **Версия** | CLI съобщава своята версия (`v1.2.0`). |
-| 2 | **Портът е свободен** | Порт 5000 е свободен, *или* вече е отговорен от изправен Chloros бекенд (което се счита за успех). |
-| 3 | **Стартиране на бекенда** | Бейнендът се стартира. |
+| 1 | **Версия** | CLI-то отчита своята версия (`v1.3.0`). |
+| 2 | **Порт наличен** | Порт 5000 е свободен, *или* вече е отговорен от изправен бекенд на Chloros (което се счита за успех). |
+| 3 | **Стартиране на бекенда** | Бинарният файл на бекенда се стартира. |
 | 4 | **Тест на API (`/api/test`)** | Бекендът отговаря с `status: ok`. |
-| 5 | **Информация за системата** | Извежда `GPU: <name>, CUDA: <bool>, PyTorch: <version>` от `/api/system-info`. |
+| 5 | **Системна информация** | Извежда `GPU: <name>, CUDA: <bool>, PyTorch: <version>` от `/api/system-info`. |
 | 6 | **Модели за отстраняване на шума** | Намира модели `*.pth.enc` (в Linux: `/usr/lib/chloros/models`). |
-| 7 | **CUDA + Филтър за отстраняване на шума**| Функцията „Texture Aware“ действително може да се използва — изисква CUDA**и** поне един файл с модел. |
+| 7 | **CUDA + Филтър за отстраняване на шума**| Texture Aware всъщност може да се използва — изисква CUDA**и** поне един файл с модел. |
 
-Изпълнението приключва с `N/7 checks passed`, като изброява всички грешки по име.
+Изпълнението завършва с `N/7 checks passed`, като изброява всички грешки по име.
 
 ### 4. Обработете първия си набор от данни
 
@@ -162,39 +158,46 @@ chloros-cli process ~/datasets/flight001
 
 ### За всеки потребител
 
-Chloros съхранява своите идентификационни данни, а CLI — конфигурацията си в една единствена междуплатформена директория, **`~/.chloros/`** (в Windows, `%USERPROFILE%\.chloros\`). Два кеша, специфични за Linux, следват конвенциите на XDG — те спазват настройките на `XDG_CONFIG_HOME` / `XDG_CACHE_HOME`, когато са зададени.
+Chloros съхранява своите идентификационни данни и конфигурацията на CLI в една единствена междуплатформена директория, **`~/.chloros/`** (в Windows — `%USERPROFILE%\.chloros\`). Два кеша, специфични за Linux, следват конвенциите на XDG — те използват `XDG_CONFIG_HOME` / `XDG_CACHE_HOME`, когато са зададени.
 
 | Път | Предназначение |
 | --- | --- |
-| `~/.chloros/user_session.json` | Кеш на сесията за вход, записан от `chloros-cli login` (изчиства се при всяка инсталация/актуализация на пакет) |
+| `~/.chloros/user_session.json` | Кеш на сесията за вход, записан от `chloros-cli login` (запазва се при актуализации на пакета; изчиства се при премахване на пакета) |
 | `~/.chloros/working_directory.txt` | Заместване на папката по подразбиране за проекта (`chloros-cli set-project-folder` / `get-project-folder` / `reset-project-folder`) |
-| `~/.chloros/cli_language.json` | Настройка за език на CLI (`chloros-cli language <code>`) |
-| `~/.chloros/user.json` | Настройката на езика се споделя с графичния интерфейс на Windows — тук `language` има приоритет пред `cli_language.json` |
+| `~/.chloros/cli_language.json` | Настройка за езика на CLI (`chloros-cli language <code>`) |
+| `~/.chloros/user.json` | Настройка на езика, споделена с графичния интерфейс на Windows — тук `language` има предимство пред `cli_language.json` |
 | `~/.chloros/update_cache.json` | Едночасов кеш за проверката за актуализации при стартиране на Linux/Jetson |
-| `~/.chloros/backend.log` | Лог на бекенда при стартирането му от CLI |
-| `~/.chloros/camera_cal/<serial>/<bundle_sha>/` | Кеширани пакети за калибриране на LATTICE за всяка камера, сортирани по сериен номер и хеш на пакета |
+| `~/.chloros/backend.log` | Лог на бекенда при стартирането му чрез CLI |
+| `~/.chloros/camera_cal/<serial>/<bundle_sha>/` | Кеширани пакети за калибриране на LATTICE за всяка камера, индексирани по сериен номер и хеш на пакета |
 | `~/.chloros/daq_cap_profiles/<u\|m\|e>/<cap_id>.json` | Опционални потребителски настройки за профилите за корекция на капацитета на DAQ |
-| `~/.config/chloros/system_config.json` | Кеширан хардуерен профил от Dynamic Compute Adaptation — изтрийте го, за да принудите ново разпознаване на хардуера |
-| `~/.cache/chloros/logs/backend_<YYYYMMDD_HHMMSS>.log` | Логи на сървъра на бекенда, по един файл за всяко стартиране |
-| `~/Chloros Projects/` | Папка по подразбиране за проекта, когато не е зададено преопределяне |
+| `~/.config/chloros/system_config.json` | Кеширан хардуерен профил от Dynamic Compute Adaptation — изтрийте го, за да принудите ново откриване на хардуера |
+| `~/.cache/chloros/logs/backend_<YYYYMMDD_HHMMSS>.log` | Лог файлове на бекенд сървъра, по един файл за всяко стартиране |
+| `~/Documents/MAPIR/Chloros Projects/` | Папка по подразбиране за проекта, когато не е зададено преопределяне |
 
-### За цялата система
+### На ниво система
 
 | Път | Предназначение |
 | --- | --- |
-| `/usr/bin/chloros-cli` | Скрипт-обвивка — задава `LD_LIBRARY_PATH` за включените в пакета native библиотеки, след което изпълнява действителния бинарен файл |
-| `/usr/bin/chloros-backend` | Скрипт-обвивка — същото, плюс `CHLOROS_PRODUCTION=1`, за да не може авторизационният шлюз на бекенда никога да се деактивира тихо |
-| `/usr/lib/chloros/chloros-cli`, `/usr/lib/chloros/chloros-backend` | Компилираните бинарни файлове |
-| `/usr/lib/chloros/arena_runtime/` | Среда за изпълнение Arena SDK, изисквана от камерите LATTICE |
+| `/usr/bin/chloros-cli` | Скрипт-обвивка — задава `LD_LIBRARY_PATH` за включените в пакета native библиотеки (и `TMPDIR` към `/mnt/ssd/tmp`, когато тази папка съществува), след което изпълнява действителния бинарен файл |
+| `/usr/bin/chloros-backend` | Скрипт-обвивка — същото за бекенда, който маркира като инсталирана производствена версия |
+| `/usr/lib/chloros/cli/`, `/usr/lib/chloros/backend/` | Компилираните CLI и бекенд, инсталирани в разпакетиран вид (новост в 1.3.0); програмите са `cli/chloros-cli` и `backend/chloros-backend` |
+| `/usr/lib/chloros/chloros-cli`, `/usr/lib/chloros/chloros-backend` | Двуредни скриптове за стартиране, които пускат горепосочените програми — запазени на тези пътища, защото SDK, CLI и по-старите скриптове ги търсят тук |
+| `/usr/lib/chloros/arena_runtime/` | Среда за изпълнение на Arena SDK, необходима за камерите LATTICE |
 | `/usr/lib/chloros/models/*.pth.enc` | Криптирани модели за премахване на шума, използвани от Texture Aware debayer |
-| `/usr/lib/chloros/sdk/chloros_sdk-*.whl` | Python SDK колело, съответстващо точно на тази версия |
-| `/usr/lib/chloros/exiftool` | Включен exiftool (създава се символна връзка към `/usr/local/bin/exiftool` само ако в системата няма exiftool) |
+| `/usr/lib/python3/dist-packages/chloros_sdk/` (и `lattice_sdk`, `lattice_cam`, `arena_api` — заредителите на проекта) | Python SDK, инсталиран за системата `python3` и принадлежащ на пакета |
+| `/usr/lib/chloros/sdk/chloros_sdk-*.whl` | Python SDK wheel, съответстващ точно на тази версия, за virtualenv |
+| `/usr/lib/chloros/exiftool` | Включен стартиращ файл за ExifTool (с символна връзка към `/usr/local/bin/exiftool` само ако не съществува системен exiftool). От версия 1.3.0 нататък скриптът ExifTool се доставя със собствена Perl библиотека в `/usr/lib/chloros/exiftool-dist/`, така че работи без системния пакет `libimage-exiftool-perl` |
 | `/etc/chloros/update.conf` | Конфигурация на канала за актуализации, четена от `chloros-cli update` |
-| `/etc/sysctl.d/60-chloros-ptp.conf` | Настройва `net.ipv4.ip_unprivileged_port_start = 319`, така че бекендът да може да свърже PTP портовете без права на root |
+| `/etc/sysctl.d/60-chloros-ptp.conf` | Задава `net.ipv4.ip_unprivileged_port_start = 319`, така че бекендът да може да свърже PTP портовете без права на root |
+| `/etc/sysctl.d/60-chloros-gige.conf` | Увеличава буферите за приемане на сокети на ядрото (`net.core.rmem_max`, `net.core.rmem_default`) до 32 MB за потоците от камери LATTICE и ги прилага при инсталирането (вече зададена по-висока стойност се запазва). При стандартните настройки на ядрото пакетите от камерата се изхвърлят в ядрото и масивът губи кадри и честота на кадрите; `chloros-cli lattice network` сигнализира за нивото на буферите, когато то е ниско. Вижте [Хостове с Linux — буфери за приемане на сокети](../reference/cli-reference.md#linux-hosts--socket-receive-buffers) |
 | `/etc/ld.so.conf.d/Arena_SDK.conf` | Насочва динамичния заредител към `/usr/lib/chloros/arena_runtime` |
-| `/lib/udev/rules.d/70-chloros-daq.rules` | Предоставя на вписания потребител достъп до USB-серийния мост DAQ-U (CP2102N, `10c4:ea60`) |
-| `/lib/systemd/system/chloros-backend.service` | Включване на постоянно активна бекенд услуга (инсталирана, **неактивирана**) |
+| `/lib/udev/rules.d/70-chloros-daq.rules` | Предоставя на вписания потребител достъп до USB серийния мост DAQ-U (CP2102N, `10c4:ea60`) |
+| `/lib/systemd/system/chloros-backend@.service` | Услуга за постоянно активен бекенд, която се стартира по избор и изпълнява бекенда като потребителя, който посочите (инсталирана, **не е активирана**) — тази, която трябва да активирате, вижте [Always-On PTP](#always-on-ptp-for-headless-hosts) |
+| `/lib/systemd/system/chloros-backend.service` | Същата услуга, която изпълнява бекенда като **root**(инсталирана,**не е активирана**), запазена, за да може машината, на която е активирана, да продължи да работи |
+| `/var/log/chloros/` | Подробният лог на услугата с права на root, достъпен за четене от групата `adm` (изтрива се при премахване на пакета) |
 | `/usr/share/applications/chloros-cli.desktop` | Елемент в менюто на приложението „Chloros CLI“, който отваря терминал |
+
+**Защитна стена (ново в 1.3.0).** Ако `ufw` или `firewalld` са активни по време на инсталирането, пакетът отваря UDP портове `5002` (данни от DAQ-E), `5353` (откриване чрез mDNS), `319` и `320` (PTP) и премахва тези правила при деинсталиране на пакета. Ако е инсталиран, но не е активен, той не добавя нищо и извежда портовете, които трябва да бъдат разрешени, в случай че го активирате по-късно. Той не отваря TCP портове: актуализацията на фърмуера на DAQ-E, при която сензорът се свързва обратно с този компютър през TCP, за да събере изображението, се проваля с грешка `… device never connected back on TCP <port> …`, докато активна защитна стена блокира тази връзка.
 
 ## Местоположение на изпълнимия файл на бекенда
 
@@ -203,24 +206,24 @@ CLI и SDK автоматично откриват бекенда:
 | Компонент | Път |
 | --- | --- |
 | CLI | `/usr/bin/chloros-cli` |
-| Бекенд | `/usr/lib/chloros/chloros-backend` |
+| Бекенд | `/usr/lib/chloros/chloros-backend` (стартиращ файл за `/usr/lib/chloros/backend/chloros-backend`) |
 
-Преопределете пътя към бекенда с флага `--backend-exe` CLI или с параметъра на конструктора `backend_exe` SDK, а портът – с `--port` (по подразбиране `5000`).
+Преопределете пътя към бекенда с флага на CLI-а `--backend-exe` или с параметъра на конструктора на SDK-а `backend_exe`, а портът – с `--port` (по подразбиране `5000`).
 
 {% hint style="info" %}
-`CHLOROS_BACKEND_URL` сочи към **`lattice`**,**`project`**и**`daq pool-*`** към отдалечен бекенд. Основните команди (`process`, `login`, `logout`, `status`, `export-status`, `time-sync`, `selftest`) умишлено го игнорират и винаги се насочват към `http://127.0.0.1:<port>`.
+`CHLOROS_BACKEND_URL` насочва семействата команди **`lattice`**,**`project`**и**`daq pool-*`** към отдалечен бекенд. Основните команди (`process`, `login`, `logout`, `status`, `export-status`, `time-sync`, `selftest`) умишлено го игнорират и винаги се насочват към `http://127.0.0.1:<port>`.
 {% endhint %}
 
 ***
 
-## Камери LATTICE и светлинни сензори DAQ на Linux
+## Камери LATTICE и светлинни сензори DAQ под Linux
 
-Всички групи команди за работа с хардуер в реално време работят на Linux (amd64 и Jetson):
+Всички групи команди от типа „live-hardware“ работят под Linux (amd64 и Jetson):
 
-* **`chloros-cli lattice`** — откриване, свързване, конфигуриране и запис от камери LATTICE и синхронизирани масиви. `.deb` обединява необходимата им среда за изпълнение Arena SDK и я регистрира в динамичния заряждащ модул.
-* **`chloros-cli daq pool-*`** — свързване на светлинни сензори DAQ-U/M/E чрез бекенд пула, предавайте калибрирани спектри и записвайте файлове `.daq`. Компилираният CLI включва само семейството `pool-*`: `pool-connect`, `pool-disconnect`, `pool-list`, `pool-latest`, `pool-stream`, `pool-record`, `pool-set-cap`.
-* **`chloros-cli project`** — стартирайте запазен проект (камерите, сензорите и настройките за обработка) в режим без интерфейс.
-* **`chloros-cli time-sync`** — проверява PTP „grandmaster“, на който работи бекендът Chloros за камери LATTICE и сензори DAQ-E.
+* **`chloros-cli lattice`** — открива, свързва, конфигурира и записва от камери LATTICE и синхронизирани масиви. `.deb` обединява необходимата им среда за изпълнение на Arena SDK и я регистрира в динамичния заредител.
+* **`chloros-cli daq pool-*`** — свързване на светлинни сензори DAQ-U/M/E чрез бекенд пула, стрийминг на калибрирани спектри, запис на файлове `.daq` и размяна на профили на капачки, а за DAQ-E — промяна на мрежовите му настройки, рестартиране и актуализиране на фърмуера му. `chloros-cli daq discover` сканира за сензори, към които можете да се свържете, а `chloros-cli daq --help` изброява подкомандите на `pool-*`.
+* **`chloros-cli project`** — управлява запазен проект (камерите, сензорите и настройките за обработка) без монитор.
+* **`chloros-cli time-sync`** — проверява PTP „grandmaster“, който бекендът на Chloros използва за камери LATTICE и сензори DAQ-E.
 
 ```bash
 # DAQ-E at a known address — the reliable path on multi-homed hosts
@@ -234,10 +237,10 @@ chloros-cli daq pool-list
 chloros-cli daq pool-latest --sensor-id daq-e-a1b2c3 --json
 ```
 
-`--sensor-id` е задължително условие за `pool-latest`, `pool-stream`, `pool-record` и `pool-set-cap`; `pool-list` показва идентификаторите, които в момента се намират в пула.
+`--sensor-id` е задължителна за `pool-latest`, `pool-stream`, `pool-record` и `pool-set-cap`; `pool-list` показва идентификаторите, които в момента се намират в пула.
 
 {% hint style="info" %}
-**Предпочитайте `--eth-host` за първото свързване на DAQ-E към машина с няколко мрежови интерфейса.** Автоматичното откриване претърсва mDNS и може да пропусне интерфейса на сензора поради празен ARP кеш, така че първият `pool-connect --eth` след стартиране може да се провали, дори когато сензорът е напълно изправен. Предаването на IP адреса или името на хоста на сензора изключва напълно процеса на откриване.
+**`--eth-host` пропуска откриването.** `pool-connect --eth` открива DAQ-E чрез mDNS, с ARP резервен вариант, който работи от празен ARP кеш; като се предаде IP адресът или името на хоста на сензора с `--eth-host`, се осъществява директна връзка с него.
 {% endhint %}
 
 **Разрешенията за сериен порт на DAQ-U** се управляват от инсталираното правило на udev (`uaccess` + група `dialout`). Ако сензор, който вече е бил включен, остава недостъпен, презаредете правилата или го включете отново:
@@ -251,26 +254,35 @@ sudo udevadm trigger --subsystem-match=tty
 
 ### Постоянно активен PTP за хостове без монитор
 
-При първата инсталация се генерира systemd модулът `chloros-backend.service`, но той **не е активиран**. На Jetson без монитор или сървър, който трябва да поддържа непрекъсната синхронизация на времето по PTP за DAQ-E сензори и LATTICE камери, активирайте го:
+Пакетът инсталира две systemd услуги за бекенда, като нито една от тях не е активирана. На Jetson без монитор или сървър, който трябва да поддържа непрекъсната PTP синхронизация на времето за DAQ-E сензори и LATTICE камери, или където скриптове на SDK свързват запазени проекти (`connect_all()` никога не стартира бекенда), активирайте услугата **като ваш потребител**:
 
 ```bash
-sudo systemctl enable --now chloros-backend.service
-sudo systemctl status chloros-backend.service
+sudo systemctl enable --now chloros-backend@$USER.service    # $USER expands to your user name
+systemctl status chloros-backend@$USER.service
 ```
 
-Без нея PTP работи само докато бекендът Chloros е активен — т.е. по време на активна сесия на CLI/SDK.
+`chloros-backend@<user>.service` изпълнява бекенда като този потребител: записите, които създава, са негови, подробният му лог се намира в неговия `~/.cache/chloros/logs`, а той използва неговия `chloros-cli login` (`~/.chloros`), затова първо се влезте веднъж като този потребител. При инсталирането на пакета се извежда тази команда с попълнено вашето потребителско име.
 
-Устройството свързва бекенда с `127.0.0.1:5000` (настройки на средата `CHLOROS_HOST` / `CHLOROS_PORT` вътре в устройството; преопределяне с `sudo systemctl edit chloros-backend.service`) и го рестартира при отказ след 5 секунди.
+Без услуга бекендът (а с него и PTP грандмастърът) работи само докато нещо го е стартирало — команда от типа `chloros-cli` или скрипт от типа SDK.
 
-**Как PTP получава своите портове.** PTP използва UDP 319/320, и двата под нормалния праг от 1024 за привилегировани портове. `postinst` от пакета записва `/etc/sysctl.d/60-chloros-ptp.conf` с `net.ipv4.ip_unprivileged_port_start = 319`, което позволява на бекенда да ги свърже, докато работи като вашия потребител. То също така прилага `setcap cap_net_bind_service,cap_net_raw=+ep` към бинарния файл на бекенда като допълнителна предпазна мярка — ето защо `libcap2-bin` е декларирана зависимост на пакета.***
+Устройството свързва бекенда с настройките на средата от типа `127.0.0.1:5000` (настройки на средата `CHLOROS_HOST` / `CHLOROS_PORT` вътре в модула; преопределете с `sudo systemctl edit chloros-backend@.service`) и го рестартира при отказ след 5 секунди.
+
+**Услугата като root.**`chloros-backend.service` изпълнява бекенда като**root**. Тя все още е инсталирана, така че машината, на която е активирана, да продължава да работи, но всичко, което бекендът с права на root записва, принадлежи на root, така че потребителят не може да изтрие собствените си записи; логът му се намира в `/var/log/chloros` и е достъпен за четене от групата `adm`. За да превключите към своя потребител:
+
+```bash
+sudo systemctl disable --now chloros-backend.service
+sudo systemctl enable --now chloros-backend@$USER.service
+```
+
+**Бекендът на дадена услуга е споделен и никога не се спира от клиент.** Скриптовете `chloros-cli` и SDK го използват така, както го намерят: `process` се изпълнява върху него, като зарежда собствения си проект на мястото на последния. Когато CLI, в противен случай, би рестартирал бекенда (`--restart` или `process`, чийто импорт не е намерил нищо), той посочва името на модула, извежда `sudo systemctl restart <unit>` и излиза от `1`, тъй като бекенд, спрян по този начин, би останал изключен. Рестартирайте го сами с `sudo systemctl restart chloros-backend@$USER.service`. Бекендът на дадена услуга никога не се спира сам в режим на бездействие, а `chloros-cli backend stop` го отхвърля, като посочва командата `systemctl stop`.**Как PTP получава своите портове.** PTP използва UDP 319/320, и двата под нормалния праг от 1024 за привилегированите портове. `postinst` на пакета записва `/etc/sysctl.d/60-chloros-ptp.conf` с `net.ipv4.ip_unprivileged_port_start = 319`, което позволява на бекенда да ги свърже, докато работи като вашия потребител. От версия 1.3.0 нататък пакетът не задава файлови права (`setcap`) на бекенда, а `libcap2-bin` вече не е зависимост: при разпакения бекенд файловите права биха попречили на стартирането му, затова не добавяйте такава сами.***
 
 ## Примери за скриптове в Bash
 
 {% hint style="info" %}
-**Кодове за изход, подходящи за скриптове.**`chloros-cli process` извежда `0` при успех и**код, различен от нула, при неуспех — включително при изпълнение, което е поискало изображения, но не е записало нито едно** (извежда `Processing finished but wrote no image products.` и посочва името на папката на проекта и обичайните причини). Успешните изпълнения съобщават колко изображения са били записани (`Image products written: N`). Кодове за изход: `0` — успех, `1` — неуспех, `2` — грешка в аргументите, `130` — прекъсване.
+**Кодове за изход, подходящи за скриптове.**`chloros-cli process` излиза с `0` при успех и**с не нулева стойност при неуспех — включително при изпълнение, което е поискало изображения, но не е записало нито едно** (извежда `Processing finished but wrote no image products.` и посочва името на папката на проекта и обичайните причини). Успешните изпълнения отчитат колко изображения са записани (`Image products written: N`, плюс `(plus M clamp masks)`, когато са записани маски). Кодове за изход: `0` — успех, `1` — неуспех, `2` — грешка в аргумента, `130` — прекъсване.
 {% endhint %}
 
-### Обработка на няколко набора от данни
+### Обработка на множество набори от данни
 
 ```bash
 #!/bin/bash
@@ -291,16 +303,17 @@ done
 chloros-cli process ~/datasets/field_a \
     --output ~/output/field_a \
     --format "TIFF (32-bit, Percent)" \
-    --indices NDVI NDRE GNDVI \
+    --indices NDVI GNDVI OSAVI \
     --debayer texture-aware \
     --no-vignette
 ```
 
-Валидните стойности за `--format` са точно четири и съдържат интервали — винаги ги поставяйте в кавички:
+Валидните стойности на `--format` са точно четири и съдържат интервали — винаги ги поставяйте в кавички:
 
 | Стойност на `--format` | Папка за изходни данни |
 | --- | --- |
 | `TIFF (16-bit)` *(по подразбиране)* | `tiff16` |
+| `TIFF (8-bit)` | `tiff8` |
 | `TIFF (32-bit, Percent)` | `tiff32` |
 | `PNG (8-bit)` | `png8` |
 | `JPG (8-bit)` | `jpg8` |
@@ -314,7 +327,7 @@ chloros-cli process ~/datasets/field_a \
 0 2 * ** /usr/bin/chloros-cli process /data/incoming --output /data/processed >> /var/log/chloros.log 2>&1
 ```
 
-### Пример за Python и SDK
+### Пример за SDK
 
 ```python
 from chloros_sdk import process_folder
@@ -322,7 +335,7 @@ from chloros_sdk import process_folder
 # One-line processing
 result = process_folder(
     "/home/user/datasets/flight001",
-    indices=["NDVI", "NDRE"],
+    indices=["NDVI", "OSAVI"],
     export_format="TIFF (32-bit, Percent)"
 )
 ```
@@ -349,21 +362,20 @@ source ~/.bashrc
 
 ```bash
 sudo chmod +x /usr/bin/chloros-cli
-sudo chmod +x /usr/lib/chloros/chloros-backend
+sudo chmod +x /usr/lib/chloros/chloros-backend /usr/lib/chloros/backend/chloros-backend
 ```
 
-### „setcap failed“ по време на инсталирането
+### Бекендът не стартира след добавяне на файлови права
 
-`.deb` прилага `cap_net_bind_service` към `/usr/lib/chloros/chloros-backend`, за да може да свърже PTP портове 319/320 без root права. Ако `libcap2-bin` е липсвало по време на инсталирането, извикването се пропуска. Инсталирайте го и преинсталирайте пакета:
+Не изпълнявайте `setcap` на бекенда. От версия 1.3.0 нататък пакетът не задава файлови възможности, а портовете 319/320 на PTP произтичат от настройката `sysctl`, описана в [Как PTP получава своите портове](#always-on-ptp-for-headless-hosts). Файловата способност поставя разпакетирания бекенд в режим на сигурно изпълнение, в който той не може да намери собствените си библиотеки, поради което не стартира. Ако сте добавили такава, премахнете я:
 
 ```bash
-sudo apt install libcap2-bin
-sudo apt reinstall chloros
+sudo setcap -r /usr/lib/chloros/backend/chloros-backend
 ```
 
-### PTP не стартира / не може да свърже порт 319
+### PTP не стартира / не може да се свърже с порт 319
 
-Уверете се, че прагът за портовете без привилегии е бил намален, и го приложете отново за текущото зареждане, ако това не е било направено:
+Уверете се, че прагът за портове без привилегии е бил понижен, и го приложете отново за текущото зареждане, ако това не е било направено:
 
 ```bash
 sysctl net.ipv4.ip_unprivileged_port_start     # expect 319
@@ -377,17 +389,16 @@ chloros-cli time-sync status
 chloros-cli time-sync peers
 ```
 
-### „Не са намерени драйвери за камери LATTICE“
+### Командите `lattice` се провалят с съобщение „Не са намерени драйвери за камери LATTICE“
 
-Средата за изпълнение на Arena SDK не се разрешава. Уверете се, че конфигурацията на зарядното устройство, която пакетът записва, е налична и актуализирана:
+Бекендът не можа да зареди средата за изпълнение на камерата LATTICE, с която е инсталиран. Всяка команда `lattice` се изпълнява на бекенда; самият CLI не съдържа драйвери за камери. Преинсталирайте Chloros (`sudo apt install --reinstall ./chloros_1.3.0_<arch>.deb`): `.deb` инсталира средата за изпълнение до бекенда, в `/usr/lib/chloros/arena_runtime`, и я регистрира в динамичния заредител. За да проверите тази регистрация:
 
 ```bash
 cat /etc/ld.so.conf.d/Arena_SDK.conf     # expect /usr/lib/chloros/arena_runtime
-sudo ldconfig
 ls /usr/lib/chloros/arena_runtime | head
 ```
 
-### Неуспешен старт на бекенда
+### Бекендът не успя да стартира
 
 ```bash
 # Check if port 5000 is already in use
@@ -400,22 +411,23 @@ kill $(lsof -t -i :5000)
 chloros-cli --port 5001 process ~/datasets/flight001
 ```
 
-Лог файловете на бекенда за неуспешния старт се намират в `~/.cache/chloros/logs/`.
+Лог файловете на бекенда за неуспешния старт се намират в `~/.cache/chloros/logs/`. Ако порт 5000 принадлежи на услуга на бекенда (`systemctl status chloros-backend@$USER.service`), рестартирайте услугата, вместо да прекратявате процеса ѝ.
 
-### CUDA не е открита
+### CUDA не е открит
 
 ```bash
-# Check NVIDIA driver installation
+# Check NVIDIA driver installation (x86_64)
 nvidia-smi
 
 # Check CUDA availability
 nvcc --version
 
-# On Jetson, check JetPack version
+# On Jetson, check the L4T release (JetPack 6 is R36) and that JetPack's CUDA libraries are installed
 cat /etc/nv_tegra_release
+sudo apt install nvidia-jetpack
 ```
 
-`chloros-cli selftest` съобщава същото в един ред: `GPU: <name>, CUDA: <bool>, PyTorch: <version>`.
+`chloros-cli selftest` отчита същото в един ред: `GPU: <name>, CUDA: <bool>, PyTorch: <version>`.
 
 ### Липсващи споделени библиотеки
 
@@ -423,13 +435,13 @@ cat /etc/nv_tegra_release
 sudo apt-get update
 sudo apt-get install -f
 
-# Check for missing libraries
-ldd /usr/lib/chloros/chloros-backend | grep "not found"
+# Check for missing libraries (the program itself, not the launcher script)
+ldd /usr/lib/chloros/backend/chloros-backend | grep "not found"
 ```
 
 ### Бавно стартиране на системи с SD-карти
 
-Компилираните бинарни файлове се разпаковат във временна директория при всяко стартиране. Ако съществува `/mnt/ssd/tmp`, Chloros го използва автоматично; в противен случай задайте `TMPDIR` към бърза файлова система:
+От версия 1.3.0 нататък бекендът и CLI-то се инсталират в разпакетиран вид, така че вече не се извличат в временна директория при всяко стартиране. Временните файлове се записват автоматично в `/mnt/ssd/tmp`, ако тази папка съществува; в противен случай можете да ги насочите към бърза файлова система:
 
 ```bash
 export TMPDIR=/mnt/nvme/tmp
@@ -439,7 +451,7 @@ export TMPDIR=/mnt/nvme/tmp
 
 ## Актуализиране на Chloros на Linux
 
-Командата `update` е достъпна само за Linux/Jetson. Тя проверява версията, публикувана в канала за актуализации, конфигуриран в `/etc/chloros/update.conf`, и предлага да изтегли и инсталира съответстващия `.deb`:
+Командата `update` е достъпна само за Linux/Jetson. Тя проверява версията, публикувана в канала за актуализации, конфигуриран в `/etc/chloros/update.conf`, и предлага да изтегли и инсталира съответната `.deb`:
 
 ```bash
 # Check for updates without installing
@@ -449,7 +461,9 @@ chloros-cli update --check
 chloros-cli update
 ```
 
-На Linux/Jetson CLI също извършва неблокираща проверка за актуализации при всяко стартиране (резултатът се съхранява в кеш за един час в `~/.chloros/update_cache.json`) и извежда `Update available: vX.Y.Z`, когато съществува по-нова версия. Настройките и проектите ви се запазват при актуализация; след това ще трябва да влезете отново в системата.
+В Linux/Jetson CLI също извършва неблокираща проверка за актуализации при всяко стартиране (резултатът се съхранява в кеш за един час в `~/.chloros/update_cache.json`) и извежда `Update available: vX.Y.Z`, когато съществува по-нова версия. Вашите настройки, проекти и данни за вход се запазват след актуализацията.
+
+Актуализирането на пакета спира всички бекенд услуги по време на инсталирането, така че изпълняващ се скрипт губи достъпа си до камерите и сензорите, а след това стартира отново всяка от тях, която е активирана (тази, която е стартирана ръчно, но никога не е била активирана, остава спряна, както след рестартиране).
 
 ## Деинсталиране
 
@@ -457,14 +471,14 @@ chloros-cli update
 sudo apt remove chloros
 ```
 
-Деинсталирането спира `chloros-backend.service`, възстановява стандартния праг за портове без привилегии (1024), премахва символната връзка към exiftool и конфигурацията на Arena loader, както и изчиства кешираните идентификационни данни. Вашите проекти и файлове с данни `~/.chloros/` остават непроменени.
+Деинсталирането спира и деактивира всички бекенд услуги, възстановява стандартната граница за портове без привилегии (1024), премахва файла с настройките на буфера за приемане (текущите стойности остават до рестартиране), символната връзка към включения в пакета exiftool, конфигурацията на Arena loader, правилата на защитната стена, добавени от пакета, и Python SDK, който е инсталирал, и изчиства кешираните идентификационни данни. Вашите проекти и файловете с данни на `~/.chloros/` остават непокътнати. `sudo apt purge chloros` също така изтрива `/var/log/chloros`.
 
 ***
 
 ## Следващи стъпки
 
-* [Ръководство за NVIDIA Jetson](nvidia-jetson-guide.md) — оптимизация и внедряване, специфични за Jetson
-* [CLI : Командна линия](../CLI.md) — ръководството за CLI
-* [API : Python SDK](../api-python-sdk.md) — ръководството SDK
-* [CLI Справочник](../reference/cli-reference.md) и [SDK Справочник](../reference/sdk-reference.md) — изчерпателен списък с команди/API за версия 1.2.0
+* [Ръководство за NVIDIA Jetson](nvidia-jetson-guide.md) — Оптимизация и внедряване, специфични за Jetson
+* [CLI: Командна линия](../CLI.md) — ръководството за CLI
+* [API: Python SDK](../api-python-sdk.md) — ръководството за SDK
+* [Справочник за CLI](../reference/cli-reference.md) и [Справочник за SDK](../reference/sdk-reference.md) — изчерпателни списъци с команди/API за версия 1.3.0
 * [Динамична адаптация на изчислителната мощност](../processing-architecture/dynamic-compute-adaptation.md) — как Chloros се адаптира към вашия хардуер
