@@ -197,7 +197,9 @@ pip install chloros-sdk
 * **🐻 Разширен метод за дебайеринг с отчитане на текстурата** – висококачествен дебайеринг с отчитане на контурите, комбиниран с AI/ML модел за премахване на шума, който елиминира почти целия шум при дебайеринга.
 * 🧮 **Потребителски формули** – Създаване на потребителски мултиспектрални индекси
 
-<p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">Вижте плановете и цените на Chloros+</a></p>***
+<p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">Вижте плановете и цените на Chloros+</a></p>
+
+***
 
 ## Помощ при инсталирането
 
@@ -238,7 +240,9 @@ pip install chloros-sdk
 * 📧 **Имейл**: info@mapir.camera
 * 🌐 **Уебсайт**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
 * 📚 **Документация**: [Първи стъпки](./)
-* ❓ **Често задавани въпроси**: [Често задавани въпроси](faq.md)***
+* ❓ **Често задавани въпроси**: [Често задавани въпроси](faq.md)
+
+***
 
 ## Софтуерни актуализации
 
